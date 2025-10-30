@@ -11,3 +11,6 @@ Generates a set by user amount of numbers in a range still chose by the user
 
 ## MANUAL
 Manually writing every value the user wants to put in
+
+
+I'm aware of some bugs. bug fixes are coming soon.
