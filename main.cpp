@@ -187,7 +187,7 @@ int sizeSelect() {
     std::cout << "Select How Many Values To Generate\n";
     int size; // size of the vector
 
-    // repeats until valid input and size bigger than 0
+    // repeats until valid input and size bigger than 1
     do {checkValidInput(size);} while (size <= 1);
 
     return size;
