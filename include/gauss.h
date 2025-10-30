@@ -1,8 +1,9 @@
 #include <iostream>
+#include <vector>
 #include <math.h>
 
 // calculates the average of mutliple values and returns it as a float
-float avgf(float values[], int size) {
+float avgf(std::vector<float> values, int size) {
 
     float sum = 0.f;
 
@@ -12,7 +13,7 @@ float avgf(float values[], int size) {
 }
 
 // calculates the standard deviation and returns it as a float
-float sigmaf(float values[], float avg, int size) {
+float sigmaf(std::vector<float> values, float avg, int size) {
 
     float sum = 0.f;
 

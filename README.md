@@ -2,8 +2,12 @@
 
 GBV is a program written in c++ that helps visualize the gauss's bell histogram given some values.
 
-## There are 2 modes for giving values (both mods are TBA, for now values are static)
+## There are 2 modes for giving values
 - RANDOM
 - MANUAL
 
-info on them is TBA
+## RANDOM
+Generates a set by user amount of numbers in a range still chose by the user
+
+## MANUAL
+Manually writing every value the user wants to put in

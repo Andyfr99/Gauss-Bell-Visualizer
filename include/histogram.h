@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 
-/* creates a string array that when displayed value by value will display an histogram of the values
-    the histogram value will be it's value and a certain amount of stars depending on how big the value is
+/* creates a string array that when displayed value by value will display an histogram of the values.
+    the histogram value will be it's value and a certain amount of stars depending on how big the value is.
     histogram example:
         0.2 | ** 
         0.5 | ****

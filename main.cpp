@@ -1,25 +1,70 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <random>
+#include <algorithm>
 #include <gauss.h>
 #include <histogram.h>
 
+
+// all functions are declared here so i can use them in main while specifying their use after main
+char chooseMode();
+std::vector<float> randomMode();
+std::vector<float> manualMode();
+int sizeSelect();
+
+template <typename T>
+
+// check if user input is valid
+void checkValidInput(T& input) {
+
+    // runs until valid
+    while (true) {
+        std::cin >> input;
+
+        // if invalid input
+        if (std::cin.fail()) {
+            std::cin.clear(); // reset failbit
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+        } else {break;}
+    }
+}
+
+
 int main(int argc, char*argv[]){
 
-    // creates an array containing all values obtained
-    float values[50] = {0.52f, 0.53f, 0.54f, 0.55f, 0.54f, 0.56f, 0.57f, 0.58f, 0.59f, 0.60f,
-         0.61f, 0.62f, 0.63f, 0.73f, 0.74f, 0.75f, 0.74f, 0.76f, 0.77f, 0.78f, 0.79f, 0.80f,
-          0.81f, 0.82f, 0.92f, 0.93f, 0.94f, 0.95f, 0.96f, 0.95f, 0.97f, 0.98f, 0.99f, 1.00f,
-           1.01f, 1.00f, 1.10f, 1.09f, 1.10f, 1.11f, 1.12f, 1.13f, 1.23f, 1.24f, 1.25f, 1.26f,
-            1.25f, 1.27f, 1.28f, 1.29f};
+    // vector containing all the values
+    std::vector<float> values;
+
+    // asks user to select a mode
+    char mode = chooseMode();
+
+     // runs the appropriate function depending on the choice
+    switch (mode)
+    {
+    case '1':
+        values = randomMode();
+        break;
     
-    // size of the values array
-    int values_size = sizeof(values) / sizeof(values[0]);
+    case '2':
+        values = manualMode();
+        break;
+    }
+    
+    // shrinks values vector to match the size and not waste memory space
+    values.shrink_to_fit();
+
+    // sorts array (so the bell is visible)
+    std::sort(values.begin(), values.end());
+
+    // size of the values vector
+    int values_size = values.size();
     
     // prints all the values
     std::cout << "values: ";
     for (int i = 0; i < values_size; i++) {if (i == values_size - 1) {std::cout << values[i] << "\n";} else {std::cout << values[i] << ", ";};}
     
-    // creates an empty array with the same size as the 'values' array that will contain the histogram's values to make the gauss's bell
+    // creates an empty array with the same size as the 'values' vector that will contain the histogram's values to make the gauss's bell
     float gauss_values[values_size];
     
     // calculates the average of all the values
@@ -54,9 +99,96 @@ int main(int argc, char*argv[]){
     
     // waits for user input to close
     std::cout << "press ENTER to close";
-    std::string temp;
-    std::getline(std::cin, temp);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get();
     
-    // codes finished successfully
+    // codes finishùd successfully
     return 0;
+}
+
+// this function chooses the mode of value typing
+char chooseMode() {
+    std::cout << "Select The Mode:\n" << "1 | Random\n" << "2 | Manual\n";
+
+    // asks user to choose the mode. repeats until the user types a valid answer.
+    char user_select_input;
+    do {std::cin >> user_select_input;} while (user_select_input != '1' && user_select_input != '2');
+
+    return user_select_input;
+}
+
+// random mode code
+std::vector<float> randomMode() {
+
+    std::cout << "Random Mode Selected\n";
+
+    // how many values to generate 
+    int size = sizeSelect();
+    
+    // range setup
+    std::cout << "Select the range\n";
+
+    std::cout << "minimum: "; 
+    float min; // minimum value range
+    checkValidInput(min); // repeats until valid input // repeats until valid input
+
+    std::cout << "maximum: "; 
+    float max; // maximum value
+    do {checkValidInput(max);} while (max <= min); // repeats until valid input; // repeats until valid input
+
+    // creates the vector
+    std::vector<float> values;
+
+    // generate random values and put them inside the vector
+
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_real_distribution<float> number(min, max); // define the range
+    for (int i=0; i < size; i++) {values.push_back(number(gen));} // put a random value for how big the size is
+
+    // new line
+    std::cout << "\n";
+
+    return values;
+}
+
+// manual mode code
+std::vector<float> manualMode() {
+    std::cout << "Manual Mode Selected\n";
+
+    // how many values to generate 
+    int size = sizeSelect();
+
+    // creates the vector
+    std::vector<float> values;
+
+    //fills vector with user written values
+    for (int i=0; i < size; i++) {
+
+        std::cout << "Value " << i << ": ";
+        float value;
+        checkValidInput(value); // repeats until valid input
+
+        values.push_back(value);
+
+        // new line
+        std::cout << "\n";
+    }
+
+    // new line
+    std::cout << "\n";
+
+    return values;
+}
+
+// function to setup how many values to generate 
+int sizeSelect() {
+
+    std::cout << "Select How Many Values To Generate\n";
+    int size; // size of the vector
+
+    // repeats until valid input and size bigger than 0
+    do {checkValidInput(size);} while (size <= 1);
+
+    return size;
 }
