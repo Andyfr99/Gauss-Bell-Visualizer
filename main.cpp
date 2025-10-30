@@ -167,7 +167,7 @@ std::vector<float> manualMode() {
 
         std::cout << "Value " << i + 1 << ": ";
         float value;
-        do {checkValidInput(size);} while (size <= 0);; // repeats until valid input and bigger than 0
+        do {checkValidInput(value);} while (value <= 0); // repeats until valid input and bigger than 0
 
         values.push_back(value);
     }
