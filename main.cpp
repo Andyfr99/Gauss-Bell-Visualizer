@@ -165,14 +165,11 @@ std::vector<float> manualMode() {
     //fills vector with user written values
     for (int i=0; i < size; i++) {
 
-        std::cout << "Value " << i << ": ";
+        std::cout << "Value " << i + 1 << ": ";
         float value;
-        checkValidInput(value); // repeats until valid input
+        do {checkValidInput(size);} while (size <= 0);; // repeats until valid input and bigger than 0
 
         values.push_back(value);
-
-        // new line
-        std::cout << "\n";
     }
 
     // new line
