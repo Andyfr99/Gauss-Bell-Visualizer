@@ -88,8 +88,13 @@ int main(int argc, char*argv[]){
     // creates a pointer array that will contain the strings to make the histogram
     std::string *histogram_values;
     
+    // how much from one star to the other
+    float star_frequency;
+    std::cout << "How much variation from one star to the other: ";
+    do{checkValidInput(star_frequency);} while (star_frequency <= 0.f);
+
     // sets the 'histogram_values' array to the array returned by the 'make_histogram' function
-    histogram_values = make_histogram(gauss_values, values_size);
+    histogram_values = make_histogram(gauss_values, values_size, star_frequency);
     
     // prints all the values of the 'histogram_values' array to display the histogram in the console
     for (int i = 0; i < values_size + 1; i++) {std::cout << histogram_values[i] << "\n";}
